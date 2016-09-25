@@ -1832,8 +1832,8 @@
 <section id="sec-scope">
 	<h1><span class="secnum" id="sec-1"><a href="#sec-scope" title="link to this section">1</a></span> Scope - 涵盖范围</h1>
 
-	<p>This Standard defines the ECMAScript 2015 general purpose programming language.
-	该标准定义了ECMAScript 2015这门通用程序设计语言</p>
+	<p>This Standard defines the ECMAScript 2015 general purpose programming language.</p>
+	<p>该标准定义了ECMAScript 2015这门通用程序设计语言。</p>
 </section>
 
 <section id="sec-conformance">
@@ -1841,36 +1841,44 @@
 
 	<p>A conforming implementation of ECMAScript must provide and support all the types, values, objects, properties, functions, and
 	program syntax and semantics described in this specification.</p>
-	<p>为了保持一致性，所有ECMAScript的实现，都必须提供并且支持所有的类型、值、对象、属性、函数，以及语法和规范中描述的语义</p>
+	<p>为了保持一致性，所有ECMAScript的实现，都必须提供并且支持所有的类型、值、对象、属性、函数，以及语法和规范中描述的语义。</p>
 
 	<p>A conforming implementation of ECMAScript must interpret source text input in conformance with the Unicode Standard, Version
 	5.1.0 or later and ISO/IEC 10646. If the adopted ISO/IEC 10646-1 subset is not otherwise specified, it is presumed to be the
 	Unicode set, collection 10646.</p>
+	<p>这些ECMAScript实现都必须一致地采用Unicode标准来进行源码解析，如5.1.0或更新版本以及ISO.IEC 10646标准。
+	若未明确指定采用ISO/IEC 10636-1子集，那么假定为10646这个Unicode字符集。</p>
 
 	<p>A conforming implementation of ECMAScript that provides an application programming interface that supports programs that need
 	to adapt to the linguistic and cultural conventions used by different human languages and countries must implement the interface
 	defined by the most recent edition of ECMA-402 that is compatible with this specification.</p>
+	<p>这些ECMAScript实现所提供的应用程序编程接口（这些接口将支持那些需要适应不同国家和语言文化习惯的程序）都必须按照ECMA-402最新版（它和本规范兼容）所规定的接口来实现</p>
 
 	<p>A conforming implementation of ECMAScript may provide additional types, values, objects, properties, and functions beyond
 	those described in this specification. In particular, a conforming implementation of ECMAScript may provide properties not
 	described in this specification, and values for those properties, for objects that are described in this specification.</p>
+	<p>这些ECMAScript实现可提供额外的除本规范所描述的 类型、值、对象、属性以及函数。并且，这些实现还可以提供本规范没有提到的属性及其值，这些属性也可用于本规范提到的对象中。</p>
 
 	<p>A conforming implementation of ECMAScript may support program and regular expression syntax not described in this
 	specification. In particular, a conforming implementation of ECMAScript may support program syntax that makes use of the
 	&ldquo;future reserved words&rdquo; listed in <a href="#sec-future-reserved-words">subclause 11.6.2.2</a> of this
 	specification.</p>
+	<p>这些ECMAScript实现可以支持本规范中未提到的编程语法和正则语法。
+	并且，还可以在语法上支持本规范中 <a href="#sec-future-reserved-words">subclause 11.6.2.2</a> 列出的“未来保留字”</p>
 
 	<p>A conforming implementation of ECMAScript must not implement any extension that is listed as a Forbidden Extension in <a
 	href="#sec-forbidden-extensions">subclause 16.1</a>.</p>
+	<p>这些ECMAScript实现不允许支持 <a href="#sec-forbidden-extensions">subclause 16.1</a> 中列出的已禁止的扩展</p>
 </section>
 
 <section id="sec-normative-references">
 	<h1><span class="secnum" id="sec-3"><a href="#sec-normative-references" title="link to this section">3</a></span> Normative
-			references</h1>
+			references - 引用标准</h1>
 
 	<p>The following referenced documents are indispensable for the application of this document. For dated references, only the
 	edition cited applies. For undated references, the latest edition of the referenced document (including any amendments)
 	applies.</p>
+	<p>下面的引用文献对此文档的实施起到了举足轻重的作用。有些过期的引用，这里仅用到了已引用的版本号。而那些未过期的引用，则采用了其最新的版本（包括一些修正案）。</p>
 
 	<p>ISO/IEC 10646:2003: <i>Information Technology &ndash; Universal Multiple-Octet Coded Character Set (UCS) plus Amendment
 	1:2005, Amendment 2:2006, Amendment 3:2008, and Amendment 4:2008</i>, plus additional amendments and corrigenda, or
@@ -1885,9 +1893,10 @@
 
 <section id="sec-overview">
 	<div class="front">
-		<h1><span class="secnum" id="sec-4"><a href="#sec-overview" title="link to this section">4</a></span> Overview</h1>
+		<h1><span class="secnum" id="sec-4"><a href="#sec-overview" title="link to this section">4</a></span> Overview - 概述</h1>
 
 		<p>This section contains a non-normative overview of the ECMAScript language.</p>
+		<p>本章节涵盖了ECMAScript语言非规范化的概要内容。</p>
 
 		<p>ECMAScript is an object-oriented programming language for performing computations and manipulating computational objects
 		within a host environment. ECMAScript as defined here is not intended to be computationally self-sufficient; indeed, there are
@@ -1896,6 +1905,11 @@
 		specification but also certain environment-specific objects, whose description and behaviour are beyond the scope of this
 		specification except to indicate that they may provide certain properties that can be accessed and certain functions that can
 		be called from an ECMAScript program.</p>
+		<p>ECMAScript是一种在宿主环境中执行计算和操作计算对象的面向对象编程语言。
+		这里所定义的ECMAScript并非用于实现独立计算（译者注：这里应该是说区别与像java这种不需要宿主的语言，ECMAScript是需要宿主的）；
+		实际上，本规范并没有关于外部数据输入和计算结果输出的条款。
+		相反的，本规范更期望运行ECMAScript程序的宿主环境可以不仅提供本规范中描述的那些对象和其他设施，还能提供环境特有的对象
+		（当然，这些对象的说明和行为已超出本规范范畴，但它们应该写明它们所能提供的可供ECMAScript程序访问的特性属性以及可被调用的函数）。</p>
 
 		<p>ECMAScript was originally designed to be used as a scripting language, but has become widely used as a general purpose
 		programming language. A <b><i>scripting language</i></b> is a programming language that is used to manipulate, customize, and

@@ -2035,6 +2035,10 @@
 			property of that name. In other words, first the object mentioned directly is examined for such a property; if that object
 			contains the named property, that is the property to which the reference refers; if that object does not contain the named
 			property, the prototype for that object is examined next; and so on.</p>
+			<p>每个通过构造器（构造函数）创建的对象都会有一个指向构造器的 <code>"prototype"</code> 属性的隐藏引用（该引用称为对象的<i>原型</i>）。
+			此外，对象的原型也可能有一个不为空的隐藏引用指向对象原型的原型，以此类推，这称之为 <i>原型链</i>。
+			当引用一个对象的属性时，引用的就是此对象的原型链中，第一个有此属性的对象的该属性。
+			换句话说，根据要访问的属性名，引擎会先去检查该对象本身是否有此属性，若无，则查找该对象的原型，若其原型也无此属性，则找其原型的原型，以此类推。</p>
 
 			<figure>
 				<object data="figure-1.svg" height="354" type="image/svg+xml" width="719">
@@ -2046,9 +2050,12 @@
 			<p>In a class-based object-oriented language, in general, state is carried by instances, methods are carried by classes, and
 			inheritance is only of structure and behaviour. In ECMAScript, the state and methods are carried by objects, while
 			structure, behaviour, and state are all inherited.</p>
+			<p>通常来讲，在基于类的语言中，状态由实例（对象）自身管理，方法由类管理，而继承的仅仅是结构和行为。
+			在ECMAScript中，状态和方法都由对象管理，继承时，结构、行为以及状态都会被继承。</p>
 
 			<p>All objects that do not directly contain a particular property that their prototype contains share that property and its
 			value. Figure 1 illustrates this:</p>
+			<p>若一个对象没有某属性，而其原型有，则该属性及其值将被共享。图1中所示：</p>
 
 			<p><b>CF</b> is a constructor (and also an object). Five objects have been created by using <code>new</code> expressions:
 			<b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b>. Each
@@ -2061,23 +2068,37 @@
 			are any properties found in <b>CF<sub>p</sub></b>&rsquo;s implicit prototype chain that are not named <code>q1</code>,
 			<code>q2</code>, or <code>CFP1</code>. Notice that there is no implicit prototype link between <b>CF</b> and
 			<b>CF<sub>p</sub></b>.</p>
+			<p><b>CF</b>是一个构造器函数（它自身也是一个对象）。
+			我们通过 <code>new</code> 关键字创建了5个对象：<b>cf<sub>1</sub></b>，<b>cf<sub>2</sub></b>，<b>cf<sub>3</sub></b>，<b>cf<sub>4</sub></b>，<b>cf<sub>5</sub></b>。
+			每个对象都有自己的属性 <code>q1</code> 和 <code>q2</code>。
+			上面的虚线代表隐式的原型关系。例如，<b>cf<sub>3</sub></b> 的原型是 <b>CF<sub>p</sub></b>，而构造器 <b>CF</b> 本身含有两个属性 <b>P1</b>、<b>P2</b>，
+			并且对 <b>CF<sub>p</sub></b>，<b>cf<sub>1</sub></b>，<b>cf<sub>2</sub></b>，<b>cf<sub>3</sub></b>，<b>cf<sub>4</sub></b>，<b>cf<sub>5</sub></b> 不可见。
+			<b>CF<sub>p</sub></b> 中的 <code>CFP1</code> 属性将被 <b>cf<sub>1</sub></b>,
+			<b>cf<sub>2</sub></b>, <b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, 和 <b>cf<sub>5</sub></b> 共享（但 <b>CF</b> 未共享），
+			就如同 <b>CF<sub>p</sub></b> 的隐式原型中的属性一样（非 <code>q1</code> <code>q2</code> <code>CFP1</code> 属性 ）</p>
 
 			<p>Unlike most class-based object languages, properties can be added to objects dynamically by assigning values to them.
 			That is, constructors are not required to name or assign values to all or any of the constructed object&rsquo;s properties.
 			In the above diagram, one could add a new shared property for <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>,
 			<b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b>, and <b>cf<sub>5</sub></b> by assigning a new value to the property in
 			<b>CF<sub>p</sub></b>.</p>
+			<p>与大多数基于类的语言不同，属性可以通过直接赋值的方式动态添加到对象中。
+			也就是说，ECMAScript并未要求构造器必须给对象的属性全部（或部分）进行定义和赋值。
+			就如上图例子中，可以通过直接给 <b>CF<sub>p</sub></b> 属性赋值的方式添加一个属性，然后共享给 <b>cf<sub>1</sub></b>, <b>cf<sub>2</sub></b>,
+			<b>cf<sub>3</sub></b>, <b>cf<sub>4</sub></b> 和 <b>cf<sub>5</sub></b></p>
 
 			<p>Although ECMAScript objects are not inherently class-based, it is often convenient to define class-like abstractions
 			based upon a common pattern of constructor functions, prototype objects, and methods. The ECMAScript built-in objects
 			themselves follow such a class-like pattern. Beginning with ECMAScript 2015, the ECMAScript language includes syntactic
 			class definitions that permit programmers to concisely define objects that conform to the same class-like abstraction
 			pattern used by the built-in objects.</p>
+			<p>尽管ECMAScript对象并不是天生基于类的，但我们通常可以通过一种通用的模式（将构造器函数、原型对象以及方法组合起来定义一个类），很方便地定义一个类。
+			ECMAScript内置的对象就是根据这中模式来实现的。从ECMAScript 2015开始，ECMAScript语言已经支持通过语法的方式直接定义类了（通过该语法定义的类，和上述的通用模式定义的类是一致的）。</p>
 		</section>
 
 		<section id="sec-strict-variant-of-ecmascript">
 			<h1><span class="secnum" id="sec-4.2.2"><a href="#sec-strict-variant-of-ecmascript"
-					title="link to this section">4.2.2</a></span> The Strict Variant of ECMAScript</h1>
+					title="link to this section">4.2.2</a></span> The Strict Variant of ECMAScript - ECMAScript中的严格（strict）模式</h1>
 
 			<p>The ECMAScript Language recognizes the possibility that some users of the language may wish to restrict their usage of
 			some features available in the language. They might do so in the interests of security, to avoid what they consider to be
@@ -2086,6 +2107,9 @@
 			syntactic and semantic features of the regular ECMAScript language and modifies the detailed semantics of some features. The
 			strict variant also specifies additional error conditions that must be reported by throwing error exceptions in situations
 			that are not specified as errors by the non-strict form of the language.</p>
+			<p>ECMAScript语言意识到，可能某些用户希望能够限制一些语言中已经存在的特性，之所以如此，主要是出于安全考虑，比如通过避免一些容易引发出错的特性，
+			来加强错误检测，或其他原因。为了满足这种需求，ECMAScript定义了严格（strict）模式，该模式移除了一些语法特性和语义特性，并修改了一些语义特性的细节。
+			严格模式还增加了一些必须抛出异常的出错情况，而这些错误在非严格模式下并不算作错误。</p>
 
 			<p>The strict variant of ECMAScript is commonly referred to as the <i>strict mode</i> of the language. Strict mode selection
 			and use of the strict mode syntax and semantics of ECMAScript is explicitly made at the level of individual ECMAScript

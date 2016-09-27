@@ -113,8 +113,8 @@
 		<li><span class="secnum"><a href="#sec-normative-references">3</a></span> Normative references</li>
 		<li><span class="secnum"><a href="#sec-overview">4</a></span> Overview
 			<ol class="toc">
-				<li><span class="secnum"><a href="#sec-web-scripting">4.1</a></span> Web Scripting</li>
-				<li><span class="secnum"><a href="#sec-ecmascript-overview">4.2</a></span> ECMAScript Overview
+				<li><span class="secnum"><a href="#sec-web-scripting">4.1</a></span> Web Scripting - Web脚本</li>
+				<li><span class="secnum"><a href="#sec-ecmascript-overview">4.2</a></span> ECMAScript Overview - ECMAScript概览
 					<ol class="toc">
 						<li><span class="secnum"><a href="#sec-objects">4.2.1</a></span> Objects</li>
 						<li><span class="secnum"><a href="#sec-strict-variant-of-ecmascript">4.2.2</a></span> The Strict Variant of
@@ -1943,7 +1943,7 @@
 
 	<section id="sec-web-scripting">
 		<h1><span class="secnum" id="sec-4.1"><a href="#sec-web-scripting" title="link to this section">4.1</a></span> Web
-				Scripting</h1>
+				Scripting - Web脚本</h1>
 
 		<p>A web browser provides an ECMAScript host environment for client-side computation including, for instance, objects that
 		represent windows, menus, pop-ups, dialog boxes, text areas, anchors, frames, history, cookies, and input/output. Further, the
@@ -1951,23 +1951,30 @@
 		unloading, error and abort, selection, form submission, and mouse actions. Scripting code appears within the HTML and the
 		displayed page is a combination of user interface elements and fixed and computed text and images. The scripting code is
 		reactive to user interaction and there is no need for a main program.</p>
+		<p>浏览器提供了一个客户端计算所需的宿主环境，比如：提供一系列代表 窗口、菜单、弹出式窗口、对话框、文本框、锚点、框架、历史、cookies以及输入/输出 的对象。
+		并且，宿主环境还提供了将代码绑定到事件的机制，比如焦点改变、页面及图片加载/卸载、错误/中止、选择文字、表单提交以及鼠标操作这些事件。
+		脚本代码的位置放在HTML的显示页面中（显示页面是一系列用户界面元素和经过计算调整的文字和图片的组合），由于它仅根据用户的交互操作来进行响应，因此不需要再有一个入口程序了。</p>
 
 		<p>A web server provides a different host environment for server-side computation including objects representing requests,
 		clients, and files; and mechanisms to lock and share data. By using browser-side and server-side scripting together, it is
 		possible to distribute computation between the client and server while providing a customized user interface for a Web-based
 		application.</p>
+		<p>Web服务器则提供了一种不同的供服务器端计算使用的宿主环境，提供了一系列代表 请求、客户端、文件 的对象，并提供了一些机制来锁定和共享数据。
+		通过将客户端和服务器端代码融合，这使得创建基于Web的自定义界面的应用程序成为可能。</p>
 
 		<p>Each Web browser and server that supports ECMAScript supplies its own host environment, completing the ECMAScript execution
 		environment.</p>
+		<p>支持ECMAScript的浏览器和服务器提供了自己独有的宿主环境，并完善了ECMAScript的执行环境。</p>
 	</section>
 
 	<section id="sec-ecmascript-overview">
 		<div class="front">
 			<h1><span class="secnum" id="sec-4.2"><a href="#sec-ecmascript-overview" title="link to this section">4.2</a></span>
-					ECMAScript Overview</h1>
+					ECMAScript Overview - ECMAScript概览</h1>
 
 			<p>The following is an informal overview of ECMAScript&mdash;not all parts of the language are described. This overview is
 			not part of the standard proper.</p>
+			<p>下面是一则关于ECMAScript的非正式概要&mdash;并未囊括整个语言。（该概要并不属于正式标准）</p>
 
 			<p>ECMAScript is object-based: basic language and host facilities are provided by objects, and an ECMAScript program is a
 			cluster of communicating objects. In ECMAScript, an <b><i>object</i></b> is a collection of zero or more
@@ -2014,6 +2021,12 @@
 			using constructors in <b>new</b> expressions; for example, <code>new Date(2009,11)</code> creates a new Date object.
 			Invoking a constructor without using <b>new</b> has consequences that depend on the constructor. For example,
 			<code>Date()</code> produces a string representation of the current date and time rather than an object.</p>
+			<p>尽管ECMAScript中有定义类(class)的语法，但从根本上来讲，它并非基于类（不像C++、Smalltalk、Java这些基于类的语言）。
+			相反的，对象的创建通常是用变量方式创建，比如通过<i>[]</i>或<i>构造器</i>，然后再初始化他们（添加属性等）。
+			构造器是一个函数，它有一个属性叫<code>prototype</code>，该属性用于实现<i>基于原型链的继承</i>以及<i>共享属性</i>。
+			对象通过<i>new</i>关键字来创建，如: <code>new Date(2009,11)</code>（Date就是构造器），将创建一个日期对象。
+			若调用的构造器的时候没有使用<i>new</i>关键字，则执行结果是由该构造器来决定的，
+			比如：<code>Date()</code>返回的 是当前表示当前日期时间的字符串，而不是一个对象。</p>
 
 			<p>Every object created by a constructor has an implicit reference (called the object&rsquo;s <i>prototype</i>) to the value
 			of its constructor&rsquo;s <code>"prototype"</code> property. Furthermore, a prototype may have a non-null implicit
